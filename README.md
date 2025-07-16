@@ -2,10 +2,6 @@
 
 Basically the default light theme with small tweaks to my liking.
 
-Made with [lush.nvim](https://github.com/rktjmp/lush.nvim)
-
-===
-
 ## Installation
 
 (like anyone will use this)
