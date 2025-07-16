@@ -23,12 +23,12 @@ local theme = lush(function(injected_functions)
     --
     -- ColorColumn    { }, -- Columns set with 'colorcolumn'
     -- Conceal        { }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
-    -- Cursor         { }, -- Character under the cursor
+    Cursor         { gui = "reverse" }, -- Character under the cursor
     -- CurSearch      { }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
     -- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
     -- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
     -- CursorColumn   { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-    CursorLine     { fg = black, bg = hsl("#ddd5bb") }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+    -- CursorLine     { fg = black, bg = hsl("#ddd5bb") }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     -- Directory      { }, -- Directory names (and other special names in listings)
     -- DiffAdd        { }, -- Diff mode: Added line |diff.txt|
     -- DiffChange     { }, -- Diff mode: Changed line |diff.txt|
@@ -56,7 +56,7 @@ local theme = lush(function(injected_functions)
     -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg        { }, -- |more-prompt|
     -- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    Normal         { bg = hsl("#fcf5e4") }, -- Normal text
+    -- Normal         { bg = hsl("#fcf5e4") }, -- Normal text
     -- NormalFloat    { }, -- Normal text in floating windows.
     -- FloatBorder    { }, -- Border of floating windows.
     -- FloatTitle     { }, -- Title of floating windows.
@@ -191,6 +191,9 @@ local theme = lush(function(injected_functions)
     GitSignsDelete { fg = hsl("#c22004") },
     GitSignsChange { fg = hsl("#0453c2") },
 
+    OilFile       { fg = black },
+    OilFileHidden { fg = black },
+
     -- Tree-Sitter syntax groups.
     --
     -- See :h treesitter-highlight-groups, some groups may not be listed,
@@ -260,6 +263,11 @@ local theme = lush(function(injected_functions)
     sym"@comment.documentation.rust" { Macro },
     sym"@spell.rust"                 { Macro },
     sym"@keyword.exception.rust"     { Macro },
+
+    sym"@spell.markdown"            { fg = black },
+    sym"@markup.heading.1.markdown" { Macro },
+    sym"@markup.heading.2.markdown" { Function },
+    sym"@markup.heading.3.markdown" { String },
 }
 end)
 
