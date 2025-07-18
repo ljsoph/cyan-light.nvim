@@ -2,8 +2,8 @@ local lush = require('lush')
 local hsl = lush.hsl
 
 
-local black = hsl('#000000')
-local green = hsl('#207004')
+local black = hsl(180, 0, 0)
+local green = hsl(110, 80, 23)
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
@@ -83,7 +83,7 @@ local theme = lush(function(injected_functions)
     -- TabLineFill    { }, -- Tab pages line, where there are no labels
     -- TabLineSel     { }, -- Tab pages line, active tab page label
     -- Title          { }, -- Titles for output from ":set all", ":autocmd" etc.
-    Visual         { bg = hsl("#b8dde0"), fg = black }, -- Visual mode selection
+    Visual         { bg = hsl(195, 59, 75), fg = black }, -- Visual mode selection
     -- VisualNOS      { }, -- Visual mode selection when vim is "Not Owning the Selection".
     -- WarningMsg     { }, -- Warning messages
     -- Whitespace     { }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
@@ -109,8 +109,8 @@ local theme = lush(function(injected_functions)
     -- Boolean        { }, --   A boolean constant: TRUE, false
     -- Float          { }, --   A floating point constant: 2.3e10
 
-    -- Identifier     { }, -- (*) Any variable name
-    Function       { fg = hsl("#008080") }, --   Function name (also: methods for classes)
+    Identifier     { fg = hsl(235, 95, 30) }, -- (*) Any variable name
+    Function       { fg = hsl(180, 100, 25) }, --   Function name (also: methods for classes)
 
     Statement      { fg = black, bold = true }, -- (*) Any statement
     -- Conditional    { }, --   if, then, else, endif, switch, etc.
@@ -160,8 +160,8 @@ local theme = lush(function(injected_functions)
     --
     DiagnosticError            { fg = hsl("#ad1d07"), bold = true } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     DiagnosticWarn             { fg = hsl("#d67804"), bold = true } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-    DiagnosticInfo             { fg = hsl("#018780"), bold = true } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-    DiagnosticHint             { fg = hsl("#032e8c"), bold = true } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticInfo             { Function, bold = true } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticHint             { Identifier, bold = true } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     -- DiagnosticOk               { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     -- DiagnosticVirtualTextError { } , -- Used for "Error" diagnostic virtual text.
     -- DiagnosticVirtualTextWarn  { } , -- Used for "Warn" diagnostic virtual text.
