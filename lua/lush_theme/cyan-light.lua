@@ -1,6 +1,5 @@
-local lush = require('lush')
+local lush = require 'lush'
 local hsl = lush.hsl
-
 
 local black = hsl(180, 0, 0)
 local green = hsl(110, 80, 23)
@@ -10,6 +9,7 @@ local green = hsl(110, 80, 23)
 ---@diagnostic disable: undefined-global
 local theme = lush(function(injected_functions)
   local sym = injected_functions.sym
+  -- stylua: ignore start
   return {
     -- The following are the Neovim (as of 0.8.0-dev+100-g371dfb174) highlight
     -- groups, mostly used for styling UI elements.
@@ -23,7 +23,7 @@ local theme = lush(function(injected_functions)
     --
     -- ColorColumn    { }, -- Columns set with 'colorcolumn'
     -- Conceal        { }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
-    Cursor         { gui = "reverse" }, -- Character under the cursor
+    Cursor         { gui = 'reverse' }, -- Character under the cursor
     -- CurSearch      { }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
     -- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
     -- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
@@ -50,7 +50,7 @@ local theme = lush(function(injected_functions)
     CursorLineNr   { fg = black, bold = true }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
     -- CursorLineFold { }, -- Like FoldColumn when 'cursorline' is set for the cursor line
     -- CursorLineSign { }, -- Like SignColumn when 'cursorline' is set for the cursor line
-    MatchParen     { bg = hsl("#99CCFF") }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+    MatchParen     { bg = hsl '#99CCFF' }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     -- ModeMsg        { }, -- 'showmode' message (e.g., "-- INSERT -- ")
     -- MsgArea        { }, -- Area for messages and cmdline
     -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
@@ -62,7 +62,7 @@ local theme = lush(function(injected_functions)
     -- FloatTitle     { }, -- Title of floating windows.
     -- NormalNC       { }, -- normal text in non-current windows
     -- Pmenu          { }, -- Popup menu: Normal item.
-    PmenuSel       { bg = hsl("#b8dde0"), fg = black }, -- Popup menu: Selected item.
+    PmenuSel       { bg = hsl '#b8dde0', fg = black }, -- Popup menu: Selected item.
     -- PmenuKind      { }, -- Popup menu: Normal item "kind"
     -- PmenuKindSel   { }, -- Popup menu: Selected item "kind"
     -- PmenuExtra     { }, -- Popup menu: Normal item "extra text"
@@ -123,7 +123,7 @@ local theme = lush(function(injected_functions)
     -- PreProc        { }, -- (*) Generic Preprocessor
     -- Include        { }, --   Preprocessor #include
     -- Define         { }, --   Preprocessor #define
-    Macro          { fg = hsl("#a55000") }, --   Same as Define
+    Macro          { fg = hsl '#a55000' }, --   Same as Define
     -- PreCondit      { }, --   Preprocessor #if, #else, #endif, etc.
 
     -- Type           { }, -- (*) int, long, char, etc.
@@ -158,10 +158,10 @@ local theme = lush(function(injected_functions)
 
     -- See :h diagnostic-highlights, some groups may not be listed, submit a PR fix to lush-template!
     --
-    DiagnosticError            { fg = hsl("#ad1d07"), bold = true } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-    DiagnosticWarn             { fg = hsl("#d67804"), bold = true } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-    DiagnosticInfo             { Function, bold = true } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-    DiagnosticHint             { Identifier, bold = true } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticError { fg = hsl '#ad1d07', bold = true }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticWarn  { fg = hsl '#d67804', bold = true }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticInfo  { Function, bold = true }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+    DiagnosticHint  { Identifier, bold = true }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     -- DiagnosticOk               { } , -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
     -- DiagnosticVirtualTextError { } , -- Used for "Error" diagnostic virtual text.
     -- DiagnosticVirtualTextWarn  { } , -- Used for "Warn" diagnostic virtual text.
@@ -185,14 +185,14 @@ local theme = lush(function(injected_functions)
     -- DiagnosticSignOk           { } , -- Used for "Ok" signs in sign column.
 
     -- Plugin Stoofs
-    IlluminatedWordText { gui = "underline", cterm = "underline" },
+    IlluminatedWordText { gui = 'underline', cterm = 'underline' },
 
-    GitSignsAdd    { fg = hsl("#018c42") },
-    GitSignsDelete { fg = hsl("#c22004") },
-    GitSignsChange { fg = hsl("#0453c2") },
+    GitSignsAdd    { fg = hsl '#018c42' },
+    GitSignsDelete { fg = hsl '#c22004' },
+    GitSignsChange { fg = hsl '#0453c2' },
 
-    OilFile       { fg = black },
-    OilFileHidden { fg = black },
+    OilFile        { fg = black },
+    OilFileHidden  { fg = black },
 
     -- Tree-Sitter syntax groups.
     --
@@ -257,18 +257,24 @@ local theme = lush(function(injected_functions)
     -- sym"@debug"             { }, -- Debug
     -- sym"@tag"               { }, -- Tag
 
-    sym"@module.rust"                { bold = true },
-    sym"@function.macro.rust"        { Macro },
-    sym"@string.escape.rust"         { Macro, bold = true },
-    sym"@comment.documentation.rust" { Macro },
-    sym"@spell.rust"                 { Macro },
-    sym"@keyword.exception.rust"     { Macro },
+    -- C
+    sym '@type.builtin.c' { fg = black, bold = true },
 
-    sym"@spell.markdown"            { fg = black },
-    sym"@markup.heading.1.markdown" { Macro },
-    sym"@markup.heading.2.markdown" { Function },
-    sym"@markup.heading.3.markdown" { String },
-}
+    -- Rust
+    sym '@module.rust' { bold = true },
+    sym '@function.macro.rust' { Macro },
+    sym '@string.escape.rust' { Macro, bold = true },
+    sym '@comment.documentation.rust' { Macro },
+    sym '@spell.rust' { Macro },
+    sym '@keyword.exception.rust' { Macro },
+
+    -- Markdown
+    sym '@spell.markdown' { fg = black },
+    sym '@markup.heading.1.markdown' { Macro },
+    sym '@markup.heading.2.markdown' { Function },
+    sym '@markup.heading.3.markdown' { String },
+  }
+  -- stylua: ignore end
 end)
 
 -- Return our parsed theme for extension or use elsewhere.
