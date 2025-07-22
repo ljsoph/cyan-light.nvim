@@ -1,4 +1,4 @@
-# cyan-light.nvim
+# lightish.nvim
 
 Basically the default light theme with small tweaks to my liking.
 
@@ -10,12 +10,12 @@ Using `lazy.nvim`
 
 ```lua
 {
-  "ljsoph/cyan-light.nvim",
+  "ljsoph/lightish.nvim",
   dependencies = "rktjmp/lush.nvim",
   lazy = false,
   priority = 1000,
   config = function()
-    vim.cmd("colorscheme cyan-light")
+    vim.cmd("colorscheme lightish")
   end
 }
 ```

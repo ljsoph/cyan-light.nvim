@@ -1,6 +1,12 @@
 local lush = require 'lush'
 local hsl = lush.hsl
 
+local background = hsl(48, 43, 91)
+
+local alt_background = hsl(43, 80, 89)
+local alt_cursorline = hsl(46, 33, 75)
+
+
 local black = hsl(180, 0, 0)
 local green = hsl(110, 80, 23)
 
@@ -28,7 +34,7 @@ local theme = lush(function(injected_functions)
     -- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
     -- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
     -- CursorColumn   { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-    CursorLine     { fg = black, bg = hsl(46, 33, 75) }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+    CursorLine     {  }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     -- Directory      { }, -- Directory names (and other special names in listings)
     -- DiffAdd        { }, -- Diff mode: Added line |diff.txt|
     -- DiffChange     { }, -- Diff mode: Changed line |diff.txt|
@@ -56,18 +62,18 @@ local theme = lush(function(injected_functions)
     -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
     -- MoreMsg        { }, -- |more-prompt|
     -- NonText        { }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    Normal         { bg = hsl(43, 80, 89) }, -- Normal text
+    Normal         { bg = background, fg = black }, -- Normal text
     -- NormalFloat    { }, -- Normal text in floating windows.
     -- FloatBorder    { }, -- Border of floating windows.
     -- FloatTitle     { }, -- Title of floating windows.
     -- NormalNC       { }, -- normal text in non-current windows
-    -- Pmenu          { }, -- Popup menu: Normal item.
-    PmenuSel       { bg = hsl '#b8dde0', fg = black }, -- Popup menu: Selected item.
-    -- PmenuKind      { }, -- Popup menu: Normal item "kind"
-    -- PmenuKindSel   { }, -- Popup menu: Selected item "kind"
-    -- PmenuExtra     { }, -- Popup menu: Normal item "extra text"
-    -- PmenuExtraSel  { }, -- Popup menu: Selected item "extra text"
-    -- PmenuSbar      { }, -- Popup menu: Scrollbar.
+    Pmenu          { bg = alt_cursorline, fg = black }, -- Popup menu: Normal item.
+    PmenuSel       { Normal, fg = black }, -- Popup menu: Selected item.
+    PmenuKind      { Pmenu }, -- Popup menu: Normal item "kind"
+    PmenuKindSel   { PmenuSel }, -- Popup menu: Selected item "kind"
+    PmenuExtra     { Pmenu }, -- Popup menu: Normal item "extra text"
+    PmenuExtraSel  { PmenuSel }, -- Popup menu: Selected item "extra text"
+    PmenuSbar      { Pmenu }, -- Popup menu: Scrollbar.
     -- PmenuThumb     { }, -- Popup menu: Thumb of the scrollbar.
     -- Question       { }, -- |hit-enter| prompt and yes/no questions
     -- QuickFixLine   { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
@@ -77,14 +83,14 @@ local theme = lush(function(injected_functions)
     -- SpellCap       { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     -- SpellLocal     { }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     -- SpellRare      { }, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
-    -- StatusLine     { }, -- Status line of current window
+    StatusLine     { bg = alt_cursorline }, -- Status line of current window
     -- StatusLineNC   { }, -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
     -- TabLine        { }, -- Tab pages line, not active tab page label
     -- TabLineFill    { }, -- Tab pages line, where there are no labels
     -- TabLineSel     { }, -- Tab pages line, active tab page label
     -- Title          { }, -- Titles for output from ":set all", ":autocmd" etc.
-    Visual         { bg = hsl(195, 59, 75), fg = black }, -- Visual mode selection
-    -- VisualNOS      { }, -- Visual mode selection when vim is "Not Owning the Selection".
+    Visual         { bg = hsl (185, 39, 80), fg = black }, -- Visual mode selection
+    VisualNOS      { Visual }, -- Visual mode selection when vim is "Not Owning the Selection".
     -- WarningMsg     { }, -- Warning messages
     -- Whitespace     { }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
     -- Winseparator   { }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
@@ -95,13 +101,9 @@ local theme = lush(function(injected_functions)
     -- Common vim syntax groups used for all kinds of code and markup.
     -- Commented-out groups should chain up to their preferred (*) group
     -- by default.
-    --
     -- See :h group-name
-    --
-    -- Uncomment and edit if you want more specific syntax highlighting.
 
     -- Comment        { }, -- Any comment
-
     -- Constant       { }, -- (*) Any constant
     String         { fg = green }, --   A string constant: "this is a string"
     -- Character      { }, --   A character constant: 'c', '\n'
@@ -110,7 +112,7 @@ local theme = lush(function(injected_functions)
     -- Float          { }, --   A floating point constant: 2.3e10
 
     Identifier     { fg = hsl(235, 95, 30) }, -- (*) Any variable name
-    Function       { fg = hsl(180, 100, 25) }, --   Function name (also: methods for classes)
+    Function       { fg = hsl(180, 72, 30) }, --   Function name (also: methods for classes)
 
     Statement      { fg = black, bold = true }, -- (*) Any statement
     -- Conditional    { }, --   if, then, else, endif, switch, etc.
@@ -123,7 +125,7 @@ local theme = lush(function(injected_functions)
     -- PreProc        { }, -- (*) Generic Preprocessor
     -- Include        { }, --   Preprocessor #include
     -- Define         { }, --   Preprocessor #define
-    Macro          { fg = hsl '#a55000' }, --   Same as Define
+    Macro          { fg = hsl(29, 83, 44) }, --   Same as Define
     -- PreCondit      { }, --   Preprocessor #if, #else, #endif, etc.
 
     -- Type           { }, -- (*) int, long, char, etc.
@@ -193,6 +195,8 @@ local theme = lush(function(injected_functions)
 
     OilFile        { fg = black },
     OilFileHidden  { fg = black },
+
+    BlinkCmpLabel { }, 
 
     -- Tree-Sitter syntax groups.
     --
@@ -264,8 +268,6 @@ local theme = lush(function(injected_functions)
     sym '@module.rust' { bold = true },
     sym '@function.macro.rust' { Macro },
     sym '@string.escape.rust' { Macro, bold = true },
-    sym '@comment.documentation.rust' { Macro },
-    sym '@spell.rust' { Macro },
     sym '@keyword.exception.rust' { Macro },
 
     -- Markdown
