@@ -1,14 +1,16 @@
 local lush = require 'lush'
 local hsl = lush.hsl
 
+-- Set by kitty, but for reference
+local cursor = hsl(221, 100, 75)
 local background = hsl(48, 43, 91)
-
 local alt_background = hsl(43, 80, 89)
+local cursorline = hsl(48, 43, 81)
 local alt_cursorline = hsl(46, 33, 75)
-
 
 local black = hsl(180, 0, 0)
 local green = hsl(110, 80, 23)
+
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
@@ -17,24 +19,16 @@ local theme = lush(function(injected_functions)
   local sym = injected_functions.sym
   -- stylua: ignore start
   return {
-    -- The following are the Neovim (as of 0.8.0-dev+100-g371dfb174) highlight
-    -- groups, mostly used for styling UI elements.
-    -- Comment them out and add your own properties to override the defaults.
-    -- An empty definition `{}` will clear all styling, leaving elements looking
-    -- like the 'Normal' group.
-    -- To be able to link to a group, it must already be defined, so you may have
-    -- to reorder items as you go.
-    --
     -- See :h highlight-groups
     --
     -- ColorColumn    { }, -- Columns set with 'colorcolumn'
     -- Conceal        { }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
-    Cursor         { gui = 'reverse', fg = black }, -- Character under the cursor
+    Cursor         { gui = 'reverse' }, -- Character under the cursor
     -- CurSearch      { }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
     -- lCursor        { }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
     -- CursorIM       { }, -- Like Cursor, but used when in IME mode |CursorIM|
     -- CursorColumn   { }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
-    CursorLine     {  }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+    CursorLine     { bg = cursorline }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
     -- Directory      { }, -- Directory names (and other special names in listings)
     -- DiffAdd        { }, -- Diff mode: Added line |diff.txt|
     -- DiffChange     { }, -- Diff mode: Changed line |diff.txt|
@@ -56,7 +50,7 @@ local theme = lush(function(injected_functions)
     CursorLineNr   { fg = black, bold = true }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
     -- CursorLineFold { }, -- Like FoldColumn when 'cursorline' is set for the cursor line
     -- CursorLineSign { }, -- Like SignColumn when 'cursorline' is set for the cursor line
-    MatchParen     { bg = hsl '#99CCFF' }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+    MatchParen     { bg = hsl(91, 44, 68), fg = black }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     -- ModeMsg        { }, -- 'showmode' message (e.g., "-- INSERT -- ")
     -- MsgArea        { }, -- Area for messages and cmdline
     -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
@@ -187,6 +181,16 @@ local theme = lush(function(injected_functions)
     -- DiagnosticSignOk           { } , -- Used for "Ok" signs in sign column.
 
     -- Plugin Stoofs
+    -- TODO
+    -- BlinkCmpMenu                  { bg = alt_cursorline, fg = black },
+    -- BlinkCmpMenuBorder            { fg = black, bold = true },
+    -- BlinkCmpDoc                   { },
+    -- BlinkCmpDocBorder             { fg = black, bold = true },
+    -- BlinkCmpSignatureHelp         { },
+    -- BlinkCmpSignatureHelpBorder = { fg = black, bold = true },
+    -- BlinkCmpLabelDetail           { fg = black, bold = true },
+    -- BlinkCmpLabelDescription      { fg = black, bold = true },
+
     IlluminatedWordText { gui = 'underline', cterm = 'underline' },
 
     GitSignsAdd    { fg = hsl '#018c42' },
@@ -195,8 +199,6 @@ local theme = lush(function(injected_functions)
 
     OilFile        { fg = black },
     OilFileHidden  { fg = black },
-
-    BlinkCmpLabel { }, 
 
     -- Tree-Sitter syntax groups.
     --
